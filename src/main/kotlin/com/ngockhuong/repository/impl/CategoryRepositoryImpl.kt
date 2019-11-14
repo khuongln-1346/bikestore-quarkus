@@ -1,33 +1,29 @@
-package com.ngockhuong.service.impl
+package com.ngockhuong.repository.impl
 
-import com.ngockhuong.model.dto.req.CategoryReqDto
-import com.ngockhuong.model.dto.res.CategoryResDto
 import com.ngockhuong.model.entity.CategoryEntity
 import com.ngockhuong.repository.CategoryRepository
-import com.ngockhuong.service.CategoryService
+import io.quarkus.hibernate.orm.panache.PanacheRepository
 import javax.enterprise.context.ApplicationScoped
-import javax.inject.Inject
 
 @ApplicationScoped
-class CategoryServiceImpl : CategoryService {
-
-    @Inject
-    internal lateinit var categoryRepository: CategoryRepository
-
-    override fun list(): List<CategoryResDto>? {
-
-        return categoryRepository.list().map { categoryEntity -> categoryEntity.transformToCategoryResDto() }
+class CategoryRepositoryImpl : CategoryRepository, PanacheRepository<CategoryEntity> {
+    override fun checkStatus(): CategoryEntity {
+        return findAll().firstResult<CategoryEntity>()
     }
 
-    override fun findById(id: Long): CategoryResDto {
+    override fun list(): List<CategoryEntity> {
+        return findAll().list<CategoryEntity>()
+    }
+
+    override fun findItemById(id: Long): CategoryEntity? {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun create(item: CategoryReqDto): CategoryResDto {
+    override fun create(item: CategoryEntity): CategoryEntity {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun update(item: CategoryReqDto): CategoryResDto {
+    override fun update(item: CategoryEntity): CategoryEntity {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

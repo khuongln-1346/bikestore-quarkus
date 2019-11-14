@@ -12,7 +12,7 @@ import javax.ws.rs.core.MediaType
 class BrandResource {
 
     @Inject
-    private lateinit var brandService: BrandService
+    internal lateinit var brandService: BrandService
 
     @GET
     fun getBrands(): List<BrandResDto> {

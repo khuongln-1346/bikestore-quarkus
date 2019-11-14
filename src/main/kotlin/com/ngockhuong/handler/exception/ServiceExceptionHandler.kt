@@ -36,10 +36,10 @@ class ServiceExceptionHandler : ExceptionMapper<Exception> {
 
         errorDetail = when (exception) {
             is EntityNotFoundException -> {
-                ErrorDetail((exception as EntityNotFoundException)!!.code ?: ErrorCode.SYSTEM_ERROR, ErrorType.SYSTEM_ERROR, null, exception.message, "")
+                ErrorDetail(exception.code, ErrorType.SYSTEM_ERROR, null, exception.message, "")
             }
             else -> {
-                ErrorDetail(ErrorCode.SYSTEM_ERROR, ErrorType.SYSTEM_ERROR, null, null, "")
+                ErrorDetail(ErrorCode.SYSTEM_ERROR, ErrorType.SYSTEM_ERROR, null, exception?.message, "")
             }
         }
 
